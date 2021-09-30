@@ -1,0 +1,34 @@
+<h1 align="center">Project developed during React Native - Practical Guide Course</h1>
+
+<h1 align="center">Number Guessing Game</h1>
+
+<h1 align="center"><img src="https://ik.imagekit.io/cnbmdh4b9w/Screenshot_4_DwnOWG2ov.png?updatedAt=1633041390883"></h1>
+
+## About
+
+**Choose a number between 1 and 149** and your phone will **guess** it. 
+
+<p>Then you will be presented with how many rounds it took for the phone to find out your number.</p> 
+
+<h1 align="center"><img src="https://ik.imagekit.io/cnbmdh4b9w/Screenshot_5_BYJVbogrPsf.png?updatedAt=1633041390867"/></h1>
+
+<h1 align="center"><img src="https://ik.imagekit.io/cnbmdh4b9w/Screenshot_2_ac4pPt_Ay.png?updatedAt=1633041236314"/></h1>
+
+
+
+## Motivation
+Practice and learn **React Native** fundamentals such as Custom Components, styling, font, Images, Button(TouchableOpacity), List (ScrollView and FlatList)
+
+
+
+## Technologies used
+- React Native
+- Expo
+
+## Course Instructor:
+<p>Maximilian Schwarzmüller</p>
+
+## Platform
+<p>Udemy</p>
+
+
