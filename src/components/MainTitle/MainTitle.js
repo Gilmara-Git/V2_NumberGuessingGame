@@ -18,7 +18,7 @@ const styles = StyleSheet.create({
     marginBottom: 25,
   },
   title: {
-    marginTop: 20,
+    marginTop: 1,
     fontFamily: Themes.fonts.glutenBold,
     color: Themes.colors.darkBlue,
     fontSize: 35,

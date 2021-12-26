@@ -1,4 +1,4 @@
-import React, { useState } from "react";
+import React, { useState, useEffect } from "react";
 import {
   View,
   Text,
@@ -6,7 +6,10 @@ import {
   Alert,
   Keyboard,
   TouchableWithoutFeedback,
+  Dimensions,
+  ScrollView,
 } from "react-native";
+
 import MainTitle from "../../src/components/MainTitle/MainTitle";
 import Card from "../../src/components/Card/Card";
 import ButtonComponent from "../../src/components/ButtonComponent/ButtonComponent";
@@ -15,8 +18,22 @@ import Themes from "../../themes/themes";
 
 const StartGame = (props) => {
   const [initialNumber, setInitialNumber] = useState();
-  const [userConfirmation, setUserConfirmation] = useState(false);
+  // const [userConfirmation, setUserConfirmation] = useState(false);
   const [confirmedNumber, setConfirmedNumber] = useState();
+  const [deviceHeight, setDeviceHeight] = useState(
+    Dimensions.get("window").height
+  );
+
+  useEffect(() => {
+    const updateHeight = () => {
+      setDeviceHeight(Dimensions.get("window").height);
+    };
+
+    Dimensions.addEventListener("change", updateHeight);
+    return () => {
+      Dimensions.removeEventListener("change", updateHeight);
+    };
+  });
 
   const textChangeHandler = (numberEntered) => {
     setInitialNumber(numberEntered.replace(/[\D]/g, ""));
@@ -37,7 +54,7 @@ const StartGame = (props) => {
       ]);
       return;
     }
-    setUserConfirmation(true);
+    // setUserConfirmation(true);
     setConfirmedNumber(chosenNumber);
     setInitialNumber("");
     Keyboard.dismiss();
@@ -46,7 +63,12 @@ const StartGame = (props) => {
   let displayConfirmedNumber;
   if (confirmedNumber) {
     displayConfirmedNumber = (
-      <Card style={styles.confirmedNumberContainer}>
+      <Card
+        style={{
+          ...styles.confirmedNumberContainer,
+          margin: deviceHeight > 500 ? 10 : 20,
+        }}
+      >
         <View style={styles.displayeNumber}>
           <MainTitle style={styles.numberTitle}>YOUR NUMBER:</MainTitle>
           <View style={styles.showNumber}>
@@ -71,37 +93,48 @@ const StartGame = (props) => {
   };
 
   return (
-    <TouchableWithoutFeedback
-      onPress={() => {
-        Keyboard.dismiss();
-      }}
-    >
-      <View style={styles.startGameContainer}>
-        <MainTitle>START GAME</MainTitle>
-        <Card style={styles.card}>
-          <MainTitle style={styles.mainTitleContainer}>
-            <Text style={styles.mainTitletext}>PICK A NUMBER</Text>
+    <ScrollView>
+      <TouchableWithoutFeedback
+        onPress={() => {
+          Keyboard.dismiss();
+        }}
+      >
+        <View style={styles.startGameContainer}>
+          <MainTitle
+            style={{
+              fontSize: deviceHeight > 500 ? 30 : 35,
+              marginBottom: deviceHeight > 500 ? 2 : 25,
+            }}
+          >
+            START GAME
           </MainTitle>
-          <View style={styles.cardElements}>
-            <NumberInput
-              onChangeText={textChangeHandler}
-              value={initialNumber}
-            />
-            <View style={styles.buttonsContainer}>
-              <View style={styles.buttonSize}>
-                <ButtonComponent onPress={resetHandler}>RESET</ButtonComponent>
-              </View>
-              <View style={styles.buttonSize}>
-                <ButtonComponent onPress={confirmHandler}>
-                  CONFIRM
-                </ButtonComponent>
+          <Card style={styles.card}>
+            <MainTitle style={styles.mainTitleContainer}>
+              <Text style={styles.mainTitletext}>PICK A NUMBER</Text>
+            </MainTitle>
+            <View style={styles.cardElements}>
+              <NumberInput
+                onChangeText={textChangeHandler}
+                value={initialNumber}
+              />
+              <View style={styles.buttonsContainer}>
+                <View style={styles.buttonSize}>
+                  <ButtonComponent onPress={resetHandler}>
+                    RESET
+                  </ButtonComponent>
+                </View>
+                <View style={styles.buttonSize}>
+                  <ButtonComponent onPress={confirmHandler}>
+                    CONFIRM
+                  </ButtonComponent>
+                </View>
               </View>
             </View>
-          </View>
-        </Card>
-        {displayConfirmedNumber}
-      </View>
-    </TouchableWithoutFeedback>
+          </Card>
+          {displayConfirmedNumber}
+        </View>
+      </TouchableWithoutFeedback>
+    </ScrollView>
   );
 };
 
@@ -139,7 +172,7 @@ const styles = StyleSheet.create({
   confirmedNumberContainer: {
     width: 300,
     height: 200,
-    marginTop: 20,
+    margin: 20,
   },
   displayeNumber: {
     alignItems: "center",
