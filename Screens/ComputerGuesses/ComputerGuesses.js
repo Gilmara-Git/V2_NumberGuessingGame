@@ -3,9 +3,9 @@ import {
   View,
   Text,
   StyleSheet,
-  Alert,
-  ScrollView,
+  Alert, 
   FlatList,
+  Dimensions
 } from "react-native";
 import Card from "../../src/components/Card/Card";
 import MainTitle from "../../src/components/MainTitle/MainTitle";
@@ -43,6 +43,20 @@ const ComputerGuesses = (props) => {
 
   const [computerGuess, setComputerGuess] = useState(firstGuess);
   const [guessList, setGuessList] = useState([firstGuess.toString()]);
+  const [deviceHeight, setDeviceHeight] = useState(
+    Dimensions.get("window").height
+  );
+
+  useEffect(() => {
+    const updateHeight = () => {
+      setDeviceHeight(Dimensions.get("window").height);
+    };
+
+    Dimensions.addEventListener("change", updateHeight);
+    return () => {
+      Dimensions.removeEventListener("change", updateHeight);
+    };
+  })
 
   useEffect(() => {
     if (computerGuess === userNumber) {
@@ -80,40 +94,72 @@ const ComputerGuesses = (props) => {
     ]);
   };
 
-  return (
-    <View style={styles.oponentContainer}>
-      <Card style={styles.computerGuessContainer}>
-        <View style={styles.innerView}>
-          <MainTitle>
-            <Text style={styles.computerTitle}>Computer Guess</Text>
-          </MainTitle>
-          <View style={styles.showNumber}>
-            <Text style={styles.guessNumber}>{computerGuess}</Text>
-          </View>
-          <View style={styles.upDownButtons}>
-            <View style={styles.buttonSize}>
-              <ButtonComponent
-                onPress={createNewComputerGuessHandler.bind(this, "down")}
-                style={styles.button}
-              >
-                <FontAwesome name="thumbs-down" size={20} />
-              </ButtonComponent>
-            </View>
-            <View style={styles.buttonSize}>
-              <ButtonComponent
-                style={styles.button}
-                onPress={createNewComputerGuessHandler.bind(this, "up")}
-              >
-                <FontAwesome name={"thumbs-up"} size={20} />
-              </ButtonComponent>
-            </View>
-          </View>
-        </View>
-      </Card>
+let gameControls = (
+<Card style={styles.computerGuessContainer}>
+  <View style={styles.innerView}>
+    <MainTitle>
+      <Text style={styles.computerTitle}>Computer Guess</Text>
+    </MainTitle>
+    <View style={styles.showNumber}>
+      <Text style={styles.guessNumber}>{computerGuess}</Text>
+    </View>
+    <View style={styles.upDownButtons}>
+      <View style={styles.buttonSize}>
+        <ButtonComponent
+          onPress={createNewComputerGuessHandler.bind(this, "down")}
+          style={styles.button}
+        >
+          <FontAwesome name="thumbs-down" size={20} />
+        </ButtonComponent>
+      </View>
+      <View style={styles.buttonSize}>
+        <ButtonComponent
+          style={styles.button}
+          onPress={createNewComputerGuessHandler.bind(this, "up")}
+        >
+          <FontAwesome name={"thumbs-up"} size={20} />
+        </ButtonComponent>
+      </View>
+    </View>
+  </View>
+</Card>);
 
+if(deviceHeight <=320){
+  gameControls = (<View style={styles.innerView}>
+    <MainTitle style={ {marginBottom: 2}}>
+      <Text style={styles.computerTitle}>Computer Guess</Text>
+    </MainTitle>
+    <View style={{...styles.upDownButtons, marginBottom: deviceHeight <=320 ? 25 :35}}>
+      <View style={styles.buttonSize}>
+        <ButtonComponent
+          onPress={createNewComputerGuessHandler.bind(this, "down")}
+          style={styles.button}
+        >
+          <FontAwesome name="thumbs-down" size={20} />
+        </ButtonComponent>
+      </View>
+        <View style={styles.showNumber}>
+          <Text style={styles.guessNumber}>{computerGuess}</Text>
+        </View>
+      <View style={styles.buttonSize}>
+        <ButtonComponent
+          style={styles.button}
+          onPress={createNewComputerGuessHandler.bind(this, "up")}
+        >
+          <FontAwesome name={"thumbs-up"} size={20} />
+        </ButtonComponent>
+      </View>
+    </View>
+  </View>);
+}
+
+
+  return (
+    <View style={{...styles.oponentContainer, marginTop: deviceHeight <=320 ? 1 : 30}}>      
+      {gameControls}
       <View style={styles.outerScrollView}>
         <FlatList
-          contentContainerStyle={styles.scrollView}
+          contentContainerStyle={styles.flatListStyle}
           data={guessList}
           keyExtractor={(item) => item}
           renderItem={renderListItem.bind(this, guessList.length)}
@@ -131,7 +177,7 @@ const ComputerGuesses = (props) => {
 const styles = StyleSheet.create({
   oponentContainer: {
     alignItems: "center",
-    marginTop: 30,
+    // marginTop: 30,
     flex: 1,
   },
   computerGuessContainer: {
@@ -192,7 +238,7 @@ const styles = StyleSheet.create({
     width: "60%", // verificar aqui, estava 74%
     flex: 1,
   },
-  scrollView: {
+  flatListStyle: {
     // Mudar nome
     // alignItems: 'center',
     justifyContent: "flex-end",
