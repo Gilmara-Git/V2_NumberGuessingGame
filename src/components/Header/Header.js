@@ -30,7 +30,7 @@ useEffect(()=>{
 });
 
   return (
-    <View style={styles.container}>
+    <View style={{...styles.container, paddingVertical: deviceHeight >=320 ? 30 : 40 }}>
       <Text style={{...styles.text, fontSize: deviceWidth >= 320 ? 20 : 25}}>{props.title}</Text>
     </View>
   );
@@ -39,7 +39,7 @@ useEffect(()=>{
 const styles = StyleSheet.create({
   container: {
     alignItems: "center",
-    paddingVertical: 50,
+    // paddingVertical: 50,
     backgroundColor: Themes.colors.darkBlue,
     width: "100%",
   },
