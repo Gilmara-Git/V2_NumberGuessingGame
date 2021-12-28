@@ -1,18 +1,47 @@
-import React from "react";
-import { View, Text, StyleSheet, Image } from "react-native";
+import React, { useState, useEffect } from "react";
+import { 
+  View, 
+  Text, 
+  StyleSheet, 
+  Image,
+  ScrollView,
+  Dimensions
+} from "react-native";
 import MainTitle from "../../src/components/MainTitle/MainTitle";
 import Themes from "../../themes/themes";
 import ButtonComponent from "../../src/components/ButtonComponent/ButtonComponent";
 
+
 const GameOver = (props) => {
   const { roundsCount, userNumber } = props;
+  const [deviceWidth, setDeviceWidth] = useState(
+    Dimensions.get("window").width
+  );
+
+  useEffect(() => {
+    const updateWidth = () => {
+      setDeviceWidth(Dimensions.get("window").width);
+    };
+
+    Dimensions.addEventListener("change", updateWidth);
+    return () => {
+      Dimensions.removeEventListener("change", updateWidth);
+    };
+  })
 
   return (
+    <ScrollView>
     <View style={styles.gameOverScreen}>
       <MainTitle>
-        <Text style={styles.title}>Play Again</Text>
+        <Text style={{fontSize: deviceWidth <=320 ? 35 : 45}}>Play Again</Text>
       </MainTitle>
-      <View style={styles.imageContainer}>
+      <View style={
+        {
+          ...styles.imageContainer, 
+          width: deviceWidth <=320 ? 250 :300, 
+          height: deviceWidth <=320 ? 250 :300,
+          marginVertical: deviceWidth <=320 ? 2: 20
+          }}>
         <Image
           style={styles.image}
           resizeMode="contain"
@@ -24,11 +53,11 @@ const GameOver = (props) => {
 
       <Text style={styles.final}>
         Rounds Taken:
-        <Text style={styles.finalNumber}>{roundsCount}</Text>
+        <Text style={styles.finalNumber}> {roundsCount}</Text>
       </Text>
       <Text style={styles.final}>
         Your Number:
-        <Text style={styles.finalNumber}>{userNumber}</Text>
+        <Text style={styles.finalNumber}> {userNumber}</Text>
       </Text>
       <ButtonComponent
         onPress={props.onGameOver}
@@ -37,6 +66,7 @@ const GameOver = (props) => {
         <Text style={styles.buttonTitle}>START OVER</Text>
       </ButtonComponent>
     </View>
+    </ScrollView>
   );
 };
 
@@ -46,18 +76,18 @@ const styles = StyleSheet.create({
     alignItems: "center",
     flex: 1,
   },
-  title: {
-    fontSize: 45,
-  },
+  // title: {
+  //   fontSize: 45,
+  // },
   imageContainer: {
-    width: 300,
-    height: 300,
+    // width: 300,
+    // height: 300,
     borderRadius: 150,
     borderWidth: 3,
     borderColor: Themes.colors.limeGreen,
     backgroundColor: Themes.colors.black,
     overflow: "hidden",
-    marginVertical: 20,
+    // marginVertical: 20,
   },
   image: {
     width: "100%",
