@@ -8,6 +8,7 @@ import {
   TouchableWithoutFeedback,
   Dimensions,
   ScrollView,
+  Platform
 } from "react-native";
 
 import MainTitle from "../../src/components/MainTitle/MainTitle";
@@ -74,14 +75,16 @@ const StartGame = (props) => {
           <View style={styles.showNumber}>
             <Text style={styles.number}>{confirmedNumber}</Text>
           </View>
-          <ButtonComponent
-            onPress={() => {
-              props.hasNumber(confirmedNumber);
-            }}
-            style={styles.startButton}
-          >
-            <Text style={styles.buttonText}>START</Text>
-          </ButtonComponent>
+          <View style={styles.buttonWrapper}>
+            <ButtonComponent
+              onPress={() => {
+                props.hasNumber(confirmedNumber);
+              }}
+              style={styles.startButton}
+            >
+              <Text style={styles.buttonText}>START</Text>
+            </ButtonComponent>
+          </View>
         </View>
       </Card>
     );
@@ -196,9 +199,11 @@ const styles = StyleSheet.create({
     fontFamily: Themes.fonts.glutenSemiBold,
     backgroundColor: Themes.colors.limeGreen,
   },
-  startButton: {
-    marginTop: 20,
+  buttonWrapper:{
+    marginTop:20,
     width: "60%",
+  },
+  startButton: {    
     backgroundColor: Themes.colors.darkBlue,
     borderRadius: 8,
   },

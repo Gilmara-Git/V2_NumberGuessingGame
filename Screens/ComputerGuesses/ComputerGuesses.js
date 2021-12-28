@@ -227,7 +227,7 @@ const styles = StyleSheet.create({
     justifyContent: "space-evenly",
   },
   button: {
-    backgroundColor: Themes.colors.darkBlue,
+    backgroundColor: Themes.colors.light,
     borderRadius: 8,
   },
   buttonSize: {
