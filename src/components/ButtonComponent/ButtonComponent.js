@@ -1,10 +1,20 @@
 import React from "react";
-import { TouchableOpacity, StyleSheet, View, Text } from "react-native";
+import { 
+  TouchableOpacity, 
+  TouchableNativeFeedback, 
+  StyleSheet, 
+  View, 
+  Text,
+  Platform
+} from "react-native";
 import Themes from "../../../themes/themes";
 
 const ButtonComponent = (props) => {
+  let hibridButton = TouchableOpacity;
+  console.log(Platform.OS === 'android', 'android?')
+
   return (
-    <TouchableOpacity {...props} activeOpacity={0.6} underlayColor="#325ce6">
+    <TouchableOpacity {...props} activeOpacity={0.5} underlayColor="#325ce6">
       <View style={styles.buttonContainer}>
         <Text style={styles.buttonText}>{props.children}</Text>
       </View>
