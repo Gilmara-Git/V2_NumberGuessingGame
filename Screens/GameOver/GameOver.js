@@ -59,12 +59,14 @@ const GameOver = (props) => {
         Your Number:
         <Text style={styles.finalNumber}> {userNumber}</Text>
       </Text>
-      <ButtonComponent
-        onPress={props.onGameOver}
-        style={styles.startOverButton}
-      >
-        <Text style={styles.buttonTitle}>START OVER</Text>
-      </ButtonComponent>
+      
+        <ButtonComponent
+          onPress={props.onGameOver}
+          style={styles.startOverButton}
+        >
+          <Text style={styles.buttonTitle}>START OVER</Text>
+        </ButtonComponent>
+ 
     </View>
     </ScrollView>
   );
@@ -96,7 +98,6 @@ const styles = StyleSheet.create({
   startOverButton: {
     backgroundColor: Themes.colors.darkBlue,
     borderRadius: 8,
-    marginVertical: 20,
     width: "50%",
   },
   buttonTitle: {
@@ -107,7 +108,8 @@ const styles = StyleSheet.create({
     color: Themes.colors.limeGreen,
     textAlign: "center",
     fontFamily: Themes.fonts.glutenRegular,
-    marginVertical: 5,
+    // marginVertical: 2,
+    marginBottom: 25
   },
   finalNumber: {
     color: Themes.colors.darkBlue,
