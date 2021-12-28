@@ -19,7 +19,11 @@
 ## Motivation
 Practice and learn **React Native** fundamentals such as Custom Components, styling, font, Images, Button(TouchableOpacity), List (ScrollView and FlatList)
 
-
+## Improvements applied
+- Adapted the 'app' to be used on smaller device.( 3.7 WVGA Nexus One 480 * 800 hdpi) Android.
+- Adapted the app to both Portrait and Landscape Orientation using the Dimensions API (Dimensions.addEventListener) to trigger whenever the 'width' and 'height' changes, then adjusted the  components to be well displayed on the screen.
+- Used the Platform API and placed a verification check Platform, then, used TouchableNativeFeeback on Android, version >=21, so we can use the 'ripple' effect on buttons.
+- Replaced the 'View' for a 'SafeAreaView' in the App.js to assure the app will not be affected by a device notch.
 
 ## Technologies used
 - React Native
