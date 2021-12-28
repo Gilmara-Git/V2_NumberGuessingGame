@@ -17,6 +17,7 @@ const createComputerGuess = (min, max, numToExlcude) => {
   min = Math.ceil(min);
   max = Math.floor(max);
   const randomGuess = Math.floor(Math.random() * (max - min)) + min;
+
   if (numToExlcude === randomGuess) {
     createComputerGuess(min, max, numToExlcude);
   }
