@@ -53,9 +53,10 @@ const ComputerGuesses = (props) => {
       setDeviceHeight(Dimensions.get("window").height);
     };
 
-    Dimensions.addEventListener("change", updateHeight);
+    const heightEvent = Dimensions.addEventListener("change", updateHeight);
     return () => {
-      Dimensions.removeEventListener("change", updateHeight);
+      // Dimensions.removeEventListener("change", updateHeight);
+      heightEvent.remove();
     };
   })
 

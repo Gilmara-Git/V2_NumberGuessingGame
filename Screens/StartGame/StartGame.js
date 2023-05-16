@@ -30,9 +30,10 @@ const StartGame = (props) => {
       setDeviceHeight(Dimensions.get("window").height);
     };
 
-    Dimensions.addEventListener("change", updateHeight);
+    const updateHeightDim  = Dimensions.addEventListener("change", updateHeight);
     return () => {
-      Dimensions.removeEventListener("change", updateHeight);
+      updateHeightDim.remove();
+      // Dimensions.removeEventListener("change", updateHeight);
     };
   });
 
