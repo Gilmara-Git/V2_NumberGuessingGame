@@ -23,9 +23,10 @@ useEffect(()=>{
     setDeviceHeight(Dimensions.get('window').height);
   }
 
-  Dimensions.addEventListener("change", updateDimensions);
+  const deviceDimensions = Dimensions.addEventListener("change", updateDimensions);
   return ()=>{
-    Dimensions.removeEventListener("change", updateDimensions);
+        deviceDimensions.remove();
+    // Dimensions.removeEventListener("change", updateDimensions);
   }
 });
 
