@@ -23,9 +23,11 @@ const GameOver = (props) => {
       setDeviceWidth(Dimensions.get("window").width);
     };
 
-    Dimensions.addEventListener("change", updateWidth);
+    const deviceWidth = Dimensions.addEventListener("change", updateWidth);
     return () => {
-      Dimensions.removeEventListener("change", updateWidth);
+    deviceWidth.remove();
+
+      // Dimensions.removeEventListener("change", updateWidth);
     };
   })
 
